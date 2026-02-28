@@ -471,7 +471,7 @@
 function updateClock() {
   const il = new Intl.DateTimeFormat('he-IL', { timeZone:'Asia/Jerusalem', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false }).format(new Date());
   const utc = new Intl.DateTimeFormat('en-GB', { timeZone:'UTC', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false }).format(new Date());
-  document.getElementById('clock').textContent = 🇮🇱 ${il} · UTC ${utc};
+  document.getElementById('clock').textContent = `🇮🇱 ${il} · UTC ${utc}`;
 }
 updateClock(); setInterval(updateClock, 1000);
 
@@ -482,8 +482,8 @@ const seenLinks = new Set();
 
 async function fetchYnetUpdates() {
   try {
-    const RSS_URL = https://www.ynet.co.il/Integration/StoryRss1854.xml?t=${new Date().getTime()};
-    const PROXY_URL = https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}&disableCache=true;
+    const RSS_URL = `https://www.ynet.co.il/Integration/StoryRss1854.xml?t=${new Date().getTime()}`;
+    const PROXY_URL = `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}&disableCache=true`;
     const res = await fetch(PROXY_URL);
     const data = await res.json();
     const xmlDoc = new DOMParser().parseFromString(data.contents, 'text/xml');
@@ -492,7 +492,7 @@ async function fetchYnetUpdates() {
     if (items.length === 0) return;
 
     const firstLink = items[0].querySelector("link")?.textContent || "";
-    document.getElementById('last-update').textContent = (בדיקה אחרונה: ${new Date().toLocaleTimeString('he-IL')});
+    document.getElementById('last-update').textContent = `(בדיקה אחרונה: ${new Date().toLocaleTimeString('he-IL')})`;
 
     if (firstLink === lastFirstItemLink && !firstLoad) return; 
     
@@ -511,7 +511,7 @@ async function fetchYnetUpdates() {
       description = tempDiv.textContent || tempDiv.innerText || "";
 
       const dateObj = new Date(pubDate);
-      const formattedDate = isNaN(dateObj) ? pubDate : ${dateObj.toLocaleDateString('he-IL')} ${dateObj.toLocaleTimeString('he-IL')};
+      const formattedDate = isNaN(dateObj) ? pubDate : `${dateObj.toLocaleDateString('he-IL')} ${dateObj.toLocaleTimeString('he-IL')}`;
 
       const isNew = !firstLoad && !seenLinks.has(link);
       seenLinks.add(link);
@@ -686,3 +686,5 @@ fetchInitialRates();
 </script>
 </body>
 </html>
+
+
