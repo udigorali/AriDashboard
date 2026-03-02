@@ -48,7 +48,7 @@
   }
 
   header {
-    padding: 20px 28px 16px;
+    padding: 30px 28px 24px;
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
@@ -75,19 +75,21 @@
     100% { box-shadow: 0 0 0 0 rgba(232,93,53,0); }
   }
 
-  h1 { font-size: 22px; font-weight: 800; letter-spacing: 0.02em; color: #fff; }
-  .subtitle { color: var(--muted); font-size: 12px; font-family: 'IBM Plex Mono', monospace; }
-  .clock { font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: var(--accent2); letter-spacing: 0.1em; }
+  h1 { font-size: 28px; font-weight: 800; letter-spacing: 0.02em; color: #fff; }
+  .subtitle { color: var(--muted); font-size: 14px; font-family: 'IBM Plex Mono', monospace; }
+  .clock { font-family: 'IBM Plex Mono', monospace; font-size: 16px; color: var(--accent2); letter-spacing: 0.1em; }
 
   .grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: minmax(600px, 1fr); /* more height for readability */
     gap: 12px;
     padding: 16px;
     position: relative;
     z-index: 1;
-    max-width: 1600px;
+    max-width: 100vw; /* never exceed viewport width */
     margin: 0 auto;
+    height: calc(100vh - 120px); /* fill available viewport below header */
   }
 
   .card {
@@ -98,6 +100,14 @@
     display: flex;
     flex-direction: column;
     transition: border-color 0.2s;
+    height: 100%; /* stretch to fill grid row */
+  }
+  .card iframe {
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
+    min-height: 600px; /* more height for readability */
+    border: 0;
   }
   .card:hover { border-color: rgba(232,93,53,0.4); }
 
@@ -150,9 +160,8 @@
 
   .feed-list {
     overflow-y: auto;
-    flex: 1;
-    min-height: 280px;
-    max-height: 420px;
+    flex: 1 1 auto;
+    min-height: 0; /* allow overflow within flex item */
   }
   .feed-list::-webkit-scrollbar { width: 4px; }
   .feed-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
@@ -294,45 +303,38 @@
         <a class="open-btn" href="https://www.ynet.co.il/news/category/184" target="_blank">↗ ynet</a>
       </div>
     </div>
-    <div class="feed-list" id="feed-ynet" style="min-height: 160px; max-height: 230px;">
+    <div class="feed-list" id="feed-ynet">
       <div style="padding: 8px 12px; text-align: center; color: var(--muted); font-family: 'IBM Plex Mono';">טוען מבזקים...</div>
     </div>
   </div>
-<!-- Haaretz -->
+
   <div class="card medium">
     <div class="card-header">
-      <div class="card-title"><span class="icon">📰</span> הארץ — חדשות</div>
-      <a class="open-btn" href="https://www.haaretz.co.il/" target="_blank">↗ הארץ</a>
+      <div class="card-title"><span class="icon">📰</span> ישראל היום — חדשות</div>
+      <a class="open-btn" href="https://www.israelhayom.co.il/israelnow" target="_blank">↗ ישראל היום</a>
     </div>
     <div class="divider-label">→ חדשות ועדכונים</div>
-    <iframe src="https://www.haaretz.co.il/" style="height:280px;"></iframe>
+    <iframe src="https://www.israelhayom.co.il/israelnow" style="height:280px;"></iframe>
   </div>
-<div class="card medium">
-  <div class="card-header">
-    <div class="card-title"><span class="icon">📰</span> ישראל היום — חדשות</div>
-    <a class="open-btn" href="https://www.israelhayom.co.il/" target="_blank">↗ ישראל היום</a>
-  </div>
-  <div class="divider-label">→ חדשות ועדכונים</div>
-  <iframe src="https://www.israelhayom.co.il/" style="height:280px;"></iframe>
-</div>
 
+  <div class="card medium">
+    <div class="card-header">
+      <div class="card-title"><span class="icon">📺</span> כאן 11 — שידור חי</div>
+      <a class="open-btn" href="https://www.kan.org.il/live/" target="_blank">↗ כאן</a>
+    </div>
+    <div class="divider-label">→ שידור חי של כאן 11</div>
+    <iframe src="https://www.kan.org.il/live/"></iframe>
+  </div>
 
-<div class="card medium">
-  <div class="card-header">
-    <div class="card-title"><span class="icon">📰</span> N12 — חדשות</div>
-    <a class="open-btn" href="https://m.n12.co.il/" target="_blank">↗ N12</a>
+  <div class="card medium">
+    <div class="card-header">
+      <div class="card-title"><span class="icon">📰</span> כאן 11</div>
+      <a class="open-btn" href="https://www.kan.org.il/newsflash/" target="_blank">↗ כאן</a>
+    </div>
+    <div class="divider-label">→ חדשות ועדכונים</div>
+    <iframe src="https://www.kan.org.il/newsflash/" style="height:280px;"></iframe>
   </div>
-  <div class="divider-label">→ חדשות ועדכונים</div>
-  <iframe src="https://m.n12.co.il/" style="height:280px;"></iframe>
-</div>
-<div class="card medium">
-  <div class="card-header">
-    <div class="card-title"><span class="icon">📰</span> כאן 11</div>
-    <a class="open-btn" href="https://www.kan.org.il/" target="_blank">↗ N12</a>
-  </div>
-  <div class="divider-label">→ חדשות ועדכונים</div>
-  <iframe src="https://www.kan.org.il/" style="height:280px;"></iframe>
-</div>
+
 
 
 <div class="card medium">
@@ -342,6 +344,15 @@
   </div>
   <div class="divider-label">→ חדשות ועדכונים</div>
   <iframe src="https://mobile.mako.co.il/news-reporters_chat?partner=NewsChatAllUpdatesButton&topicId=news" style="height:280px;"></iframe>
+</div>
+
+<div class="card medium">
+  <div class="card-header">
+    <div class="card-title"><span class="icon">📺</span> 12 חדשות — שידור חי</div>
+    <a class="open-btn" href="https://www.mako.co.il/mako-vod-live-tv/VOD-25efe60e0a9ac91026.htm?abExternalOpen=true" target="_blank">↗ Mako</a>
+  </div>
+  <div class="divider-label">→ שידור חי של ערוץ 12</div>
+  <iframe src="https://www.mako.co.il/mako-vod-live-tv/VOD-25efe60e0a9ac91026.htm?abExternalOpen=true"></iframe>
 </div>
 
 <div class="card medium">
@@ -362,6 +373,15 @@
   <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.airnavradar.com/live-widget/OIIE?type=news&showIcao=true&limit=20&timing=10&metar=true&metarWind=true&fahrenheit=true&map=true&photo=true" style="height:280px;width:100%;"></iframe>
 </div>
 
+<div class="card medium">
+  <div class="card-header">
+    <div class="card-title"><span class="icon">✈️</span> AirnavRadar — Beirut (OLBA)</div>
+    <a class="open-btn" href="https://www.airnavradar.com/live-widget/OLBA" target="_blank">↗ AirnavRadar</a>
+  </div>
+  <div class="divider-label">→ מעקב מטוסים בביירות</div>
+  <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.airnavradar.com/live-widget/OLBA?type=news&showIcao=true&limit=20&timing=10&metar=true&metarWind=true&fahrenheit=true&map=true&photo=true" style="height:280px;width:100%;"></iframe>
+</div>
+
 <div class="card span-2">
   <div class="card-header">
     <div class="card-title"><span>📊</span> Cloudflare Radar — Iran Traffic</div>
@@ -371,7 +391,7 @@
     </div>
   </div>
   
-  <div style="position: relative; width: 100%; height: 350px; overflow: hidden; background: var(--surface);">
+  <div style="flex:1; position:relative; width:100%; overflow:hidden; background: var(--surface);">
     <iframe 
       class="cf-radar-embed" 
       src="https://radar.cloudflare.com/embed/TrafficTrendsXY?location=ir&ref=%2Fir&theme=dark" 
